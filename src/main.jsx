@@ -40,7 +40,7 @@ function App() {
   const [menu, setMenu] = useState(false);
   const [faq, setFaq] = useState(null);
 
-  const go = () => window.open("https://wa.me/5571999999999?text=Olá!%20Quero%20saber%20como%20funciona%20o%20acompanhamento%20nutricional.", "_blank");
+  const go = () => window.open("https://wa.me/5571996553137?text=Olá!%20Quero%20saber%20como%20funciona%20o%20acompanhamento%20nutricional.", "_blank");
 
   return <div className="page">
     <header className="header">
