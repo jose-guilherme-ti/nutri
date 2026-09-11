@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot } from "react-dom/client"
+import { useSearchParams, BrowserRouter  } from 'react-router-dom';
 import { ArrowRight, Check, ChevronDown, Instagram, MessageCircle, Play, Star, ShieldCheck, Sparkles, Menu, X } from "lucide-react";
 
 import Counter from "./componentes/Counter";
 import "./styles.css";
+import Sorteio from "./componentes/Sorteio";
+
+import apresentacao from '../src/assets/Apresentacao.jpeg'; // 👈 Importe aqui
+import profissional from '../src/assets/Profissional.jpeg'; // 👈 Importe aqui
 
 const testimonials = [
   { name: "Mariana, 34 anos", text: "Pela primeira vez consegui emagrecer sem viver pensando em dieta. O plano cabe na minha rotina e o acompanhamento fez toda diferença.", tag: "-8,4 kg em 4 meses" },
@@ -39,18 +44,23 @@ function App() {
   useReveal();
   const [menu, setMenu] = useState(false);
   const [faq, setFaq] = useState(null);
+  const [searchParams] = useSearchParams();
+  const sorteio = searchParams.get('sorteio');
 
   const go = () => window.open("https://wa.me/5571996553137?text=Olá!%20Quero%20saber%20como%20funciona%20o%20acompanhamento%20nutricional.", "_blank");
 
   return <div className="page">
     <header className="header">
       <div className="container nav">
-        <a className="brand" href="#top"><span>Nutri</span> Paula</a>
+        <a className="brand" href="#top"><span>Nutri</span> Poliana Campos</a>
         <nav className={menu ? "navlinks open" : "navlinks"}>
           <a href="#metodo" onClick={() => setMenu(false)}>Método</a>
           <a href="#resultados" onClick={() => setMenu(false)}>Resultados</a>
           <a href="#sobre" onClick={() => setMenu(false)}>Sobre</a>
           <a href="#faq" onClick={() => setMenu(false)}>Dúvidas</a>
+          {sorteio && (
+            <a href="#sorteio" onClick={() => setMenu(false)}>Sorteio</a>
+          )}
           <button className="navcta" onClick={go}>Quero começar <ArrowRight size={16} /></button>
         </nav>
         <button className="menubtn" onClick={() => setMenu(!menu)} aria-label="Menu">{menu ? <X /> : <Menu />}</button>
@@ -76,7 +86,7 @@ function App() {
           </div>
           <div className="heroVisual reveal-right">
             <div className="imageCard">
-              <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=900&q=85" alt="Nutricionista em ambiente profissional" />
+              <img src={apresentacao} alt="Nutricionista em ambiente profissional" />
               <div className="floatingCard">
                 <div className="checkCircle"><Check size={17} /></div>
                 <div><strong>Plano personalizado</strong><span>Feito para a sua rotina</span></div>
@@ -161,12 +171,12 @@ function App() {
         <div className="container twoCol aboutGrid">
           <div className="aboutCopy reveal-left">
             <span className="kicker">SOBRE A PROFISSIONAL</span>
-            <h2>Prazer, eu sou a <em>Paula.</em></h2>
+            <h2>Prazer, eu sou a <em>Poliana.</em></h2>
             <p className="lead">Nutricionista clínica apaixonada por transformar a relação das pessoas com a alimentação.</p>
             <p>Minha abordagem é baseada em escuta, ciência e praticidade. Acredito que um bom plano alimentar precisa funcionar no papel e, principalmente, funcionar na vida real.</p>
             <div className="credentials"><div><ShieldCheck /><strong>Atendimento humanizado</strong></div><div><ShieldCheck /><strong>Estratégia individualizada</strong></div><div><ShieldCheck /><strong>Acompanhamento contínuo</strong></div></div>
           </div>
-          <div className="aboutPhoto reveal-right"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=900&q=85" alt="Profissional de nutrição" /></div>
+          <div className="aboutPhoto reveal-right"><img src={profissional} alt="Profissional de nutrição" /></div>
         </div>
       </section>
 
@@ -178,8 +188,9 @@ function App() {
           </div>
         </div>
       </section>
+     
 
-      <section className="faq reveal" id="faq">
+      {<section className="faq reveal" id="faq">
         <div className="container faqGrid">
           <div><span className="kicker">DÚVIDAS FREQUENTES</span><h2>Antes de começar, <em>vamos esclarecer.</em></h2><p>Se ainda ficou alguma dúvida, fale diretamente comigo.</p><button className="textButton" onClick={go}>Falar no WhatsApp <MessageCircle size={17} /></button></div>
           <div className="faqList reveal-right">{faqs.map(([q, a], i) =>
@@ -190,15 +201,23 @@ function App() {
               </button>{faq === i && <p>{a}</p>}
             </div>)}</div>
         </div>
-      </section>
+      </section>}
+
+       {sorteio && <section className="method reveal" id="sorteio">
+            <Sorteio/>
+      </section>}
     </main>
 
     <footer className="footer">
-      <div className="container footerTop"><div><a className="brand" href="#top"><span>Nutri</span> Paula</a><p>Nutrição personalizada para uma vida mais leve, saudável e possível.</p></div><div className="footerLinks"><a href="#metodo">Método</a><a href="#resultados">Resultados</a><a href="#sobre">Sobre</a><a href="#faq">Dúvidas</a></div><div className="social"><a href="#" aria-label="Instagram"><Instagram /></a><button onClick={go} aria-label="WhatsApp"><MessageCircle /></button></div></div>
-      <div className="container footerBottom"><span>© 2026 Nutri Paula. Dados e depoimentos desta demonstração são fictícios.</span><span>CRN 00000 • Salvador/BA</span></div>
+      <div className="container footerTop"><div><a className="brand" href="#top"><span>Nutri</span> Poliana Campos</a><p>Nutrição personalizada para uma vida mais leve, saudável e possível.</p></div><div className="footerLinks"><a href="#metodo">Método</a><a href="#resultados">Resultados</a><a href="#sobre">Sobre</a><a href="#faq">Dúvidas</a></div><div className="social"><a href="#" aria-label="Instagram"><Instagram /></a><button onClick={go} aria-label="WhatsApp"><MessageCircle /></button></div></div>
+      <div className="container footerBottom"><span>© 2026 Nutri Poliana. Dados e depoimentos desta demonstração são fictícios.</span><span>CRN 00000 • Salvador/BA</span></div>
     </footer>
     <button className="whatsapp" onClick={go}><MessageCircle fill="currentColor" /> <span>Fale comigo</span></button>
   </div>
 }
 
-createRoot(document.getElementById("root")).render(<App />);
+createRoot(document.getElementById("root")).render(
+<BrowserRouter>
+<App />
+</BrowserRouter>
+);
