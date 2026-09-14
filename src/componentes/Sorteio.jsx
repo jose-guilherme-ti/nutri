@@ -25,7 +25,7 @@ export default function Sorteio() {
     try {
         const API_URL = window.location.hostname === 'localhost' 
         ? 'http://localhost:3001' 
-        : `http://nutri-back-two.vercel.app/:3001`;
+        : `http://nutri-back-two.vercel.app/`;
       const response = await fetch(`${API_URL}/api/comments`, {
         method: 'POST',
         headers: {
